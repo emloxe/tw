@@ -1,0 +1,26 @@
+{
+  "name": "tw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "start": "npm run dev",
+    "build": "vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emloxe/tw.git"
+  },
+  "keywords": [
+    "twaver",
+    "twaver.js",
+    "t.js"
+  ],
+  "author": "W.J. Zhang",
+  "license": "MIT",
+  "dependencies": {
+    "vuepress": "^1.0.3"
+  }
+}
