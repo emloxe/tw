@@ -18,15 +18,15 @@ module.exports = {
         },
         {
           title: 'entity',
-          children: ['billboard'],
+          children: ['billboard', 'cube', 'obj'],
         },
         {
           title: '交互',
-          children: [],
+          children: ['editInteraction'],
         },
         {
-          title: '技巧',
-          children: ['canvas'],
+          title: '效果',
+          children: ['articulation'],
         },
       ],
       '/tt/': [
