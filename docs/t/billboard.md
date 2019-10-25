@@ -21,17 +21,13 @@ box.add(billboard);
 
 ## 动态更新内容
 
+动态更新内容，就是将传入的canvas，进行重新绘制，绘制完成后设置`billboard.invalidateTexture();`
+
 ```js
-const canvas = document.createElement('canvas');
-const w = this._w;
-canvas.width = w;
-canvas.height = w;
 
 const billboard = new mono.Billboard();
 billboard.s({'m.texture.image': canvas});
-```
 
-```js
 new mono.Animate({
   from: 0,
   to: 1,
@@ -59,7 +55,7 @@ billboard.s({
   'm.texture.image': this._canvas,
   'm.transparent': true,
   'm.fixedSize': 300, // 添加
-  'm.depthTest': false,
+  'm.depthTest': true,
   'm.alignment': mono.BillboardAlignment.center,
 });
 billboard.setSelectable(false);

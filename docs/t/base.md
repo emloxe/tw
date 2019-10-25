@@ -23,14 +23,8 @@ mono.Utils.autoAdjustNetworkBounds(
 ## 清除背景
 
 ```js
-const clearBackground = (network) => {
-  // code goes here
-  if (isNetwork3d(network)) {
-    network.setClearColor(0, 0, 0);
-    network.setClearAlpha(0);
-  }
-};
-clearBackground(network);
+network.setClearColor(0, 0, 0);
+network.setClearAlpha(0);
 ```
 
 ## 光源
@@ -46,11 +40,35 @@ box.add(new mono.AmbientLight(0x888888));
 ```js
 const camera = network.getCamera();
 camera.setPosition(100, 0, 0);
-camera.look(0, 0, 0);
+camera.lookAt(0, 0, 0);
+camera.setNear(20);
+```
+
+## 交互限制
+```js
+const defaultInteraction = network.getDefaultInteraction();
+defaultInteraction.maxDistance = 6000;
+defaultInteraction.minDistance = 200;
 ```
 
 ## 天空盒
-
+天空盒是采用make导入模型
+```js
+const skyBox = make.Default.load([
+  {
+    id: 'twaver.scene.skybox',
+    radius,
+    image: 'skybox_sixblue.jpg',
+    floorImage: '6.png',
+    client: {
+      bid: ''
+    },
+    position: [0, 0, 0],
+    rotation: [0, 0, 0]
+  }
+])[0];
+box.add(skyBox);
+```
 
 
 ## 其他

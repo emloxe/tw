@@ -25,8 +25,8 @@ module.exports = {
           children: [],
         },
         {
-          title: '未分类',
-          children: [],
+          title: '技巧',
+          children: ['canvas'],
         },
       ],
       '/tt/': [
