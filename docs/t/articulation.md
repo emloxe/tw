@@ -36,6 +36,9 @@ function createCanvas({
   fontColor = '#01dbff',
 }) {
 
+  width = mono.Utils.nextPowerOfTwo(w);
+  height = mono.Utils.nextPowerOfTwo(h);
+
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   canvas.width = width;
@@ -115,4 +118,31 @@ function createCanvas({
 
   return { canvas, w: width / 2, h: height / 2 };
 }
+```
+
+
+## 其他
+```js
+/**
+ * 获取下一个接近2的幂的值
+ * @method nextPowerOfTwo
+ * @static
+ * @param  {Number} v 值
+ * @return {Number}   返回下一个接近2的幂的值
+ */
+$Utils.nextPowerOfTwo = function(v) {
+    var oldValue = v;
+    v--;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v++;
+
+    // if(v - oldValue > oldValue - v / 2){
+    //     return oldValue;
+    // }
+    return v;
+};
 ```
