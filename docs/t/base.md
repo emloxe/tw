@@ -29,10 +29,25 @@ network.setClearAlpha(0);
 
 ## 光源
 ```js
-const pointLight = new mono.PointLight(0xffffff, 1.5);
-pointLight.setPosition(1000, 1000, 1000);
+const box = network.getDataBox();
+
+const directionalLight = new mono.DirectionalLight(0xaaaaaa, 0.5);
+directionalLight.setDirection(new mono.Vec3(1, 1, 1));
+box.add(directionalLight);
+
+let pointLight = new mono.PointLight(0xFFFFFF, 0.1);
+pointLight.setPosition(3000, 3000, 3000);
 box.add(pointLight);
-box.add(new mono.AmbientLight(0x888888));
+
+pointLight = new mono.PointLight(0xFFFFFF, 0.7);
+pointLight.setPosition(0, 3000, 3000);
+box.add(pointLight);
+
+pointLight = new mono.PointLight(0xFFFFFF, 0.4);
+pointLight.setPosition(-3000, 3000, -3000);
+box.add(pointLight);
+
+box.add(new mono.AmbientLight(0x222222));
 ```
 
 ## 镜头
