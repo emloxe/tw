@@ -66,6 +66,11 @@ defaultInteraction.maxDistance = 6000;
 defaultInteraction.minDistance = 200;
 ```
 
+禁止鼠标右键拖拽
+```js
+network.getDefaultInteraction().noPan = true;
+```
+
 ## 天空盒
 天空盒是采用make导入模型
 ```js
@@ -85,6 +90,10 @@ const skyBox = make.Default.load([
 box.add(skyBox);
 ```
 
+## 取消选中的绿色边框效果
+```js
+network.setRenderSelectFunction(() => false);
+```
 
 ## 其他
 
