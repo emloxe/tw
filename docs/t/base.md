@@ -30,24 +30,22 @@ network.setClearAlpha(0);
 ## 光源
 ```js
 const box = network.getDataBox();
-
-const directionalLight = new mono.DirectionalLight(0xaaaaaa, 0.5);
-directionalLight.setDirection(new mono.Vec3(1, 1, 1));
+const directionalLight = new mono.DirectionalLight(0x333333, 0.3);
+directionalLight.setDirection(new mono.Vec3(0, 1, 1));
 box.add(directionalLight);
-
-let pointLight = new mono.PointLight(0xFFFFFF, 0.1);
-pointLight.setPosition(3000, 3000, 3000);
+let pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(2000, 2000, 2000);
 box.add(pointLight);
-
-pointLight = new mono.PointLight(0xFFFFFF, 0.7);
-pointLight.setPosition(0, 3000, 3000);
+pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(-2000, 2000, 2000);
 box.add(pointLight);
-
-pointLight = new mono.PointLight(0xFFFFFF, 0.4);
-pointLight.setPosition(-3000, 3000, -3000);
+pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(2000, 2000, -2000);
 box.add(pointLight);
-
-box.add(new mono.AmbientLight(0x222222));
+pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(-2000, 2000, -2000);
+box.add(pointLight);
+box.add(new mono.AmbientLight(0x888888));
 ```
 
 ## 镜头
@@ -60,6 +58,7 @@ camera.setNear(20);
 ```
 
 ## 交互限制
+最大距离和最小距离
 ```js
 const defaultInteraction = network.getDefaultInteraction();
 defaultInteraction.maxDistance = 6000;
@@ -70,7 +69,10 @@ defaultInteraction.minDistance = 200;
 ```js
 network.getDefaultInteraction().noPan = true;
 ```
-
+镜头视角
+```js
+network.getDefaultInteraction().yLowerLimitAngle = Math.PI / 100
+```
 ## 天空盒
 天空盒是采用make导入模型
 ```js

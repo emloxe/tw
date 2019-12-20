@@ -42,3 +42,40 @@ function loadObj({
   }));
 }
 ```
+
+给模型添加旋转动画
+```js
+/**
+ * 旋转动画
+ * @param {}
+ */
+export const setObjectRotateAnimate = (
+  target,
+  {
+    toAngle, // [0, 1]
+    axis = new mono.Vec3(0, 1, 0), // 旋转轴
+    axisPosition = new mono.Vec3(14, 0, 425), // 相对于自身原点的位置
+    dur = (Math.random() + 0.5) * 3000,
+    easing = 'easeNone',
+    onDone = () => {},
+  },
+) => {
+  let hasRotation = 0;
+  const animation = new mono.Animate({
+    from: 0,
+    to: toAngle,
+    dur,
+    easing,
+    onUpdate(value) {
+      const i = value - hasRotation;
+      hasRotation += i;
+
+      target.rotateFromAxis(axis, axisPosition, Math.PI * i);
+    },
+  });
+  animation.onDone = onDone;
+  animation.play();
+
+  return animation;
+};
+```

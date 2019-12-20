@@ -14,7 +14,7 @@ module.exports = {
       '/t/': [
         {
           title: '基础配置',
-          children: ['base'],
+          children: ['base', 'camera'],
         },
         {
           title: 'entity',
