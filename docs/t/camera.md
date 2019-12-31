@@ -57,3 +57,39 @@ export const focusTargetFunc = (network, element, cb) => {
   animateCamera(camera, interaction, posPoint, lookPoint, onDone);
 };
 ```
+
+# 调整 3d 镜头
+```js
+/**
+ * 调整 3d 镜头
+ * @name setCamera
+ * @function
+ * @param {mono.Network3D} network 3d 拓扑图对象
+ * @param {Object} options 选择项
+ * @param {array} options.pos 位置坐标
+ * @param {array} options.rot 旋转
+ * @param {array} options.tar 目标点位置
+ */
+export const adjustCamera = (network, options) => {
+  const camera = network.getCamera();
+
+  Object.keys(options).forEach((key) => {
+    const value = options[key];
+
+    switch (key) {
+      case 'pos':
+        camera.setPosition(new mono.Vec3(...value));
+        break;
+      case 'rot':
+        camera.setRotation(new mono.Vec3(...value));
+        break;
+      case 'tar':
+        camera.look(new mono.Vec3(...value));
+        break;
+
+      default:
+        break;
+    }
+  });
+};
+```
