@@ -43,7 +43,6 @@ new mono.Animate({
 ```
 
 ## 不随着镜头缩放
-需要增加twaver-make.js文件
 
 ```js
 const billboard = new mono.Billboard();

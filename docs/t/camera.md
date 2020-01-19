@@ -44,7 +44,7 @@ export const focusTargetFunc = (network, element, cb) => {
   const camera = network.getCamera();
   const interaction = network.getDefaultInteraction();
 
-  const size = mono.Utils.getBoundingBox(element, true);
+  const size = element.getBoundingBoxWithChildren();
   const distance = Math.max(size.max.x - size.min.x, size.max.y - size.min.y) * 1.5;
 
   const posPoint = element.frontWorldPosition(distance);
