@@ -18,7 +18,7 @@ module.exports = {
         },
         {
           title: 'entity',
-          children: ['billboard', 'cube', 'obj', 'gltf', 'link'],
+          children: ['billboard', 'cube', 'obj', 'gltf', 'link', 'pathCube'],
         },
         {
           title: '交互',

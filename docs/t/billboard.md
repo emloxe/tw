@@ -62,5 +62,21 @@ billboard.setSizeFixed(true); // 添加
 box.add(billboard);
 ```
 
+## 图片闪烁问题
 
+将图片绘制在放大了2的幂倍canvas上
+
+useW,useH 是本身的宽高，w,h是2的幂
+```js
+billboard.setScale(useW, useH);
+billboard.s({
+  'm.transparent': true,
+  'm.depthTest': true,
+  'm.alignment': mono.BillboardAlignment.bottomCenter,
+  'm.texture.anisotropy': 16,
+  'm.texture.image': canvas,
+  'm.texture.repeat': new mono.Vec2(useW / w, useH / h),
+  'm.texture.offset': new mono.Vec2(0, 1 - useH / h),
+});
+```
 

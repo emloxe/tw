@@ -5,6 +5,19 @@
 局限性：如果需要聚焦的模型是一整obj导入模型的一部分，`mono.Utils.getBoundingBox(element, true);`始终获取到是全部模型的大小，所以镜头飞向的实际是整个模型。
 ```js
 /**
+ * 根据比例，计算中间点坐标
+ * @param {object} from 起始点
+ * @param {object} to 终止点
+ * @param {number} proportion 比例
+ */
+const calculVec3ByProportion = (from, to, proportion = 1) =>
+  new mono.Vec3(
+    from.x + (to.x - from.x) * proportion,
+    from.y + (to.y - from.y) * Math.abs(proportion),
+    from.z + (to.z - from.z) * proportion,
+  );
+
+/**
  * 相机动画
  * @param {mono.Camera} camera 相机
  * @param {mono.DefaultInteraction} interaction 交互对象
@@ -12,7 +25,9 @@
  * @param {mono.Vec3} newPoint 目标相机看向位置
  * @param {function} onDone 执行动画完毕的回调
  */
-export const animateCamera = (camera, interaction, posPoint, lookPoint, onDone) => {
+export const animateCamera = (network, posPoint, lookPoint, onDone) => {
+  const camera = network.getCamera();
+  const interaction = network.getDefaultInteraction();
   // 停掉所有的动画
   mono.Utils.stopAllAnimates(true);
 
@@ -40,10 +55,11 @@ export const animateCamera = (camera, interaction, posPoint, lookPoint, onDone) 
 /**
  * 聚焦到目标元素的方法
  */
-export const focusTargetFunc = (network, element, cb) => {
+export const focusTargetFunc = (network, element, isAnimate = true, cb) => {
   const camera = network.getCamera();
-  const interaction = network.getDefaultInteraction();
 
+  // 前提是getBoundingBoxWithChildren
+  // todo 兼容billboard
   const size = element.getBoundingBoxWithChildren();
   const distance = Math.max(size.max.x - size.min.x, size.max.y - size.min.y) * 1.5;
 
@@ -54,7 +70,12 @@ export const focusTargetFunc = (network, element, cb) => {
     cb && cb();
   };
 
-  animateCamera(camera, interaction, posPoint, lookPoint, onDone);
+  if (isAnimate) {
+    animateCamera(network, interaction, posPoint, lookPoint, onDone);
+  } else {
+    camera.p(...Object.values(posPoint));
+    camera.lookAt(...Object.values(lookPoint));
+  }
 };
 ```
 
