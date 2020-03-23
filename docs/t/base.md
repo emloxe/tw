@@ -48,6 +48,29 @@ box.add(pointLight);
 box.add(new mono.AmbientLight(0x888888));
 ```
 
+## 阴影
+```js
+light.setPosition(...pos);
+light.setCastShadow(true);
+light.shadowMapWidth = 1280;
+light.shadowMapHeight = 1280;
+light.shadowDarkness = 0.3;
+light.shadowRadius = 1.0;
+light.shadowCameraNear = 10;
+light.shadowCameraFar = 10000;
+```
+
+## fog
+```js
+network.setUseFog(true);
+network.setFogColor(new mono.Color(0, 21, 41));
+network.setFogDensity(0.75);
+
+network.setShadowMapEnable(true);
+network.shadowMapType = mono.PCFSoftShadowMap;
+network.sortNodes = true;
+```
+
 ## 镜头
 
 ```js
@@ -73,6 +96,14 @@ network.getDefaultInteraction().noPan = true;
 ```js
 network.getDefaultInteraction().yLowerLimitAngle = Math.PI / 100
 ```
+
+## fog
+```js
+network.setFogColor(new mono.Color(0, 21, 41));
+network.setFogDensity(0.75);
+```
+
+
 ## 天空盒
 天空盒是采用make导入模型
 ```js
