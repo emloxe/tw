@@ -1,3 +1,3 @@
 # tip
 
-cube类型经过克隆不能ssetStyle 'top.m.color'
+cube类型经过克隆不能setStyle 'top.m.color'
