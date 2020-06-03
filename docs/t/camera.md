@@ -49,12 +49,53 @@ export const focusTargetFunc = (network, element, cb) => {
 
   const posPoint = element.frontWorldPosition(distance);
   const lookPoint = element.getWorldPosition();
+
+  const { max, min } = element.getBoundingBoxWithChildren();
+
+  if (max.y !== -min.y) {
+    const yy = (max.y + min.y) / 2 * element.getScale().y;
+    posPoint.y += yy;
+    lookPoint.y += yy;
+  }
+
   const onDone = () => {
     // eslint-disable-next-line no-unused-expressions
     cb && cb();
   };
 
   animateCamera(camera, interaction, posPoint, lookPoint, onDone);
+};
+```
+
+# 调整镜头到一个物体前面
+```js
+/**
+ * 聚焦到目标元素的方法
+ */
+export const focusTarget = (network, element) => {
+  const camera = network.getCamera();
+  const size = element.getBoundingBoxWithChildren();
+  const { x: sx, y: sy, z: sz } = element.getScale();
+  if (size) {
+    const distance = Math.max(
+      (size.max.x - size.min.x)*sx,
+      (size.max.y - size.min.y)*sy,
+      (size.max.z - size.min.z)*sz,
+      ) * 1.3;
+    const posPoint = element.frontWorldPosition(distance);
+    const { x, y, z } = element.getWorldPosition();
+
+    const lookPoint = {
+      x: x + (size.max.x + size.min.x) / 2 * sx,
+      y: y + (size.max.y + size.min.y) / 2 * sy,
+      z: z + (size.max.z + size.min.z) / 2 * sz,
+    };
+
+    posPoint.y += (size.max.y + size.min.y) / 2 * sy + (size.max.y - size.min.y) * 0.1;
+
+    camera.p(...Object.values(posPoint));
+    camera.lookAt(...Object.values(lookPoint));
+  }
 };
 ```
 
