@@ -14,15 +14,15 @@ module.exports = {
       '/t/': [
         {
           title: '基础配置',
-          children: ['base'],
+          children: ['base', 'camera'],
         },
         {
           title: 'entity',
-          children: ['billboard', 'cube', 'obj'],
+          children: ['billboard', 'cube', 'obj', 'gltf', 'link', 'pathCube'],
         },
         {
           title: '交互',
-          children: ['editInteraction'],
+          children: ['event', 'editInteraction'],
         },
         {
           title: '效果',

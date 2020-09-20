@@ -29,10 +29,46 @@ network.setClearAlpha(0);
 
 ## 光源
 ```js
-const pointLight = new mono.PointLight(0xffffff, 1.5);
-pointLight.setPosition(1000, 1000, 1000);
+const box = network.getDataBox();
+const directionalLight = new mono.DirectionalLight(0x333333, 0.3);
+directionalLight.setDirection(new mono.Vec3(0, 1, 1));
+box.add(directionalLight);
+let pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(2000, 2000, 2000);
+box.add(pointLight);
+pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(-2000, 2000, 2000);
+box.add(pointLight);
+pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(2000, 2000, -2000);
+box.add(pointLight);
+pointLight = new mono.PointLight(0xaaaaaa, 0.3);
+pointLight.setPosition(-2000, 2000, -2000);
 box.add(pointLight);
 box.add(new mono.AmbientLight(0x888888));
+```
+
+## 阴影
+```js
+light.setPosition(...pos);
+light.setCastShadow(true);
+light.shadowMapWidth = 1280;
+light.shadowMapHeight = 1280;
+light.shadowDarkness = 0.3;
+light.shadowRadius = 1.0;
+light.shadowCameraNear = 10;
+light.shadowCameraFar = 10000;
+```
+
+## fog
+```js
+network.setUseFog(true);
+network.setFogColor(new mono.Color(0, 21, 41));
+network.setFogDensity(0.75);
+
+network.setShadowMapEnable(true);
+network.shadowMapType = mono.PCFSoftShadowMap;
+network.sortNodes = true;
 ```
 
 ## 镜头
@@ -45,11 +81,28 @@ camera.setNear(20);
 ```
 
 ## 交互限制
+最大距离和最小距离
 ```js
 const defaultInteraction = network.getDefaultInteraction();
 defaultInteraction.maxDistance = 6000;
 defaultInteraction.minDistance = 200;
 ```
+
+禁止鼠标右键拖拽
+```js
+network.getDefaultInteraction().noPan = true;
+```
+镜头视角
+```js
+network.getDefaultInteraction().yLowerLimitAngle = Math.PI / 100
+```
+
+## fog
+```js
+network.setFogColor(new mono.Color(0, 21, 41));
+network.setFogDensity(0.75);
+```
+
 
 ## 天空盒
 天空盒是采用make导入模型
@@ -70,6 +123,10 @@ const skyBox = make.Default.load([
 box.add(skyBox);
 ```
 
+## 取消选中的绿色边框效果
+```js
+network.setRenderSelectFunction(() => false);
+```
 
 ## 其他
 
