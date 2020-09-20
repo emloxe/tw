@@ -35,6 +35,8 @@ function createCanvas({
   fontSize = 25,
   fontColor = '#01dbff',
 }) {
+  width = mono.Utils.nextPowerOfTwo(width) * 2;
+  height = mono.Utils.nextPowerOfTwo(height) * 2;
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -56,13 +58,21 @@ function createCanvas({
   }
   // 文字
   if (text) {
-    ctx.font = `${fontSize}px Arial`;
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillStyle = fontColor;
-    ctx.fillText(text, width / 2, height / 2);
+    const font = `${fontSize}px Arial`;
+    ctx.font = font;
+    // const {height: txtw} = mono.Utils.getMaxTextSize(text, font);
+    const txtw = ctx.measureText(text).width;
+    if (txtw > width - borderWidth * 2) {
+      ctx.translate(width / 2, height / 2);
+      ctx.scale((width - borderWidth * 2) / txtw, (width - borderWidth * 2) / txtw);
+      ctx.fillText(text, 0, 0);
+    } else {
+      ctx.fillText(text, width / 2, height / 2);
+    }
   }
-
   return canvas;
 }
 ```
@@ -81,8 +91,6 @@ function createCanvas({
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
-  ctx.beginPath();
-  ctx.font = `${fontSize}px Arial`;
   let { width, height } = mono.Utils.getTextSize(`${fontSize}px Arial`, text);
   width = mono.Utils.nextPowerOfTwo(width + borderWidth * 2);
   height = mono.Utils.nextPowerOfTwo(height + borderWidth * 2);
